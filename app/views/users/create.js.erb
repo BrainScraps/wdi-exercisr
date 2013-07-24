@@ -1,0 +1,3 @@
+var users_table = $('#users_table');
+$('#signup_window').foundation('reveal', 'close');
+users_table.empty().append("<%= j render 'users' %>");
