@@ -1,27 +1,43 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <title>Exercisr</title>
-  <%= stylesheet_link_tag    "application", :media => "all" %>
-  <%= javascript_include_tag "application" %>
-  <%= csrf_meta_tags %>
-</head>
-<body>
+<!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
+<!--[if lt IE 7 ]> <html class="ie6" lang="en"> <![endif]-->
+<!--[if IE 7 ]>    <html class="ie7" lang="en"> <![endif]-->
+<!--[if IE 8 ]>    <html class="ie8" lang="en"> <![endif]-->
+<!--[if (gte IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+  <head>
+  	<meta charset="utf-8" />
 
-<% if current_user %>
-  <%= link_to "Edit Profile", edit_user_path(current_user.id) %>
-  <%= link_to "Logout", :logout %>
-<% else %>
-  <%= link_to "Register", new_user_path %> |
-  <%= link_to "Login", :login %>
-<% end %>
+  	<!-- Uncomment to make IE8 render like IE7 -->
+  	<!-- <meta http-equiv="X-UA-Compatible" content="IE=7" /> -->
 
-<div>
-  <p id="notice"><%= notice %></p>
-  <p id="alert"><%= alert %></p>
-</div>
+  	<!-- Set the viewport width to device width for mobile -->
+  	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-<%= yield %>
+  	<title><%= content_for?(:title) ? yield(:title) : "Exercisr" %></title>
 
-</body>
+  	<%= stylesheet_link_tag    "application" %>
+  	<%= javascript_include_tag "vendor/custom.modernizr" %>
+    <%= csrf_meta_tags %>
+  </head>
+
+  <body>
+    <nav class="top-bar">
+      <ul class="title-area">
+        <!-- Title Area -->
+        <li class="name">
+          <h1><%= link_to "Exercisr!", root_url %> </h1>
+        </li>
+        <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
+        <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+      </ul>
+
+      
+    </nav>
+    <div class="row">
+    <%= render :partial => 'layouts/do_flash' %>
+    <%= yield %>
+    </div>
+    
+    <%= javascript_include_tag "application" %>
+  </body>
 </html>
