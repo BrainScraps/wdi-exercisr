@@ -1,0 +1,24 @@
+%h1 My exercises
+%p Here are the exercises you've completed. 
+
+
+= form_tag( chart_path, {:method => :post, :remote => true}) do
+  = select_tag( "exercise", options_for_select(@user.list_exercises))
+  = hidden_field_tag( 'user', @user.id.to_s)
+  = button_tag "Chart"
+
+#ex_chart
+
+%table
+  %thead
+    %th When? 
+    %th Exercise
+    %th How much? 
+
+    - @user.exercises.each do |ex|
+      %tr
+        %td= "#{time_ago_in_words ex.completed} ago "
+        %td= ex.activity
+        %td= "#{ex.value} #{ex.units}!"
+
+%h3= link_to "New Exercise", new_user_exercise_path(current_user.id), {:remote => true, :class => "button"}

@@ -30,9 +30,22 @@
         <!-- Remove the class "menu-icon" to get rid of menu icon. Take out "Menu" to just have icon alone -->
 
       </ul>
+      <section class="top-bar-section">
+
       <ul class="right"> 
          <% if current_user %>
          <li> <%= link_to "Edit Profile", edit_user_path(current_user.id) %> </li>
+         <li class="has-dropdown"> <%= link_to "My Exercises", my_exercises_path %> 
+           <ul class="dropdown">
+            <%  current_user.list_exercises.each do |x| %>
+              <li> <%= link_to x.to_s, "#" %> </li>
+
+            <% end %>
+           </ul>
+
+
+
+         </li>
          <li> <%= link_to "Log Out", logout_path %> </li>
          <% else %>
          <li> <%= link_to "Register", new_user_path, :remote => :true, :data => {'reveal-id' => "signup_window"}  %> </li> 
@@ -41,6 +54,7 @@
 
          <% end %>
        </ul>
+     </section>
 
       
     </nav>

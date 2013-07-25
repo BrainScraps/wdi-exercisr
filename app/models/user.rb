@@ -6,4 +6,21 @@ class User < ActiveRecord::Base
   validates_confirmation_of :password, :message => "should match confirmation", :if => :password
 
   has_many :exercises
+
+
+  def list_exercises
+  
+  	result = []
+   if self.exercises.count > 1
+     
+     self.exercises.each do |x|
+
+  	  result << x.activity
+
+  	 end
+  	end
+  	result.uniq!
+  end
+
+
 end

@@ -1,0 +1,21 @@
+window.chartdata = {};
+
+
+$('#ex_chart').html('');
+chartdata.units = "<%= @exercises.first.units %>";
+chartdata.data = [];
+
+ <% @exercises.each_with_index do |exercise, i| %>
+   chartdata.data.push({'date': "<%= exercise.completed.to_s[0..9] %>", 'value':"<%= exercise.value %>"});
+ <% end %>
+
+console.log(chartdata);
+
+new Morris.Bar({
+  element: 'ex_chart',
+  data: chartdata.data,
+  xkey: 'date',
+  ykeys: ['value'],
+  labels: ['value']
+});
+
